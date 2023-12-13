@@ -1,30 +1,24 @@
 <script>
-    export let firstName;
-    export let lastName;
-    export let color;
+    import { missing_component } from 'svelte/internal';
 
-    // The reactive value will actumatically update when the dependent values are updated.
-    $: fullName = `${firstName} ${lastName}`;
-    // It will log in the console everytime the color changes.
-    $: {
-        console.log(color);
-        console.log(fullName);
-    }
-
-    const handleCLick = () => {
-        color = 'Blue';
-    };
-
-    const handleInput = (e) => {
-        color = e.target.value;
-    };
+    let people = [
+        { name: 'Yoshi', beltColor: 'Black', age: 25, id: 1 },
+        { name: 'Mario', beltColor: 'Orange', age: 45, id: 2 },
+        { name: 'Luigi', beltColor: 'Brown', age: 35, id: 3 },
+    ];
 </script>
 
 <main>
-    <p style="color: {color};">{fullName} - Your belt color is {color}.</p>
-    <input type="text" bind:value={firstName} />
-    <input type="text" bind:value={lastName} />
-    <input type="text" bind:value={color} />
+    <!-- Adding the person.id will link each row to that respective person will be easier when manipulating data in the future. -->
+    {#each people as person (person.id)}
+        <div>
+            <h4>{person.name}</h4>
+            <p>{person.age} yeras old, {person.beltColor} belt.</p>
+        </div>
+        <!-- :else can be used in the scenario that data is missing. -->
+    {:else}
+        <p>There are no people to show...</p>
+    {/each}
 </main>
 
 <style>
