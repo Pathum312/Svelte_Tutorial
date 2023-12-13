@@ -1,24 +1,40 @@
 <script>
-    export let name;
-    export let color;
+    import Modal from './Modal.svelte';
 
-    const handleCLick = () => {
-        color = 'Blue';
-    };
+    let people = [
+        { name: 'Yoshi', beltColor: 'Black', age: 25, id: 1 },
+        { name: 'Mario', beltColor: 'Orange', age: 45, id: 2 },
+        { name: 'Luigi', beltColor: 'Brown', age: 35, id: 3 },
+    ];
 
-    const handleInput = (e) => {
-        color = e.target.value;
+    // Remove person from array.
+    const deletePerson = (id) => {
+        people = people.filter((person) => person.id != id);
     };
 </script>
 
+<Modal />
 <main>
-    <h1>Hello {name}!</h1>
-    <p style="color: {color};">Your belt color is {color}.</p>
-    <button on:click={handleCLick}>Change Color</button>
-    <!-- The on:input type method is better for one way data binding. -->
-    <!-- <input type="text" on:input={handleInput} value={color} /> -->
-    <!-- This is better for two way data binding. -->
-    <input type="text" bind:value={color} />
+    <!-- Adding the person.id will link each row to that respective person will be easier when manipulating data in the future. -->
+    {#each people as person (person.id)}
+        <div>
+            <h4>{person.name}</h4>
+            {#if person.beltColor.toLowerCase() === 'black'}
+                <p><strong>MASTER NINJA</strong></p>
+            {:else if person.beltColor.toLowerCase() === 'brown'}
+                <p><strong>ADVANCED NINJA</strong></p>
+            {:else if person.beltColor.toLowerCase() === 'orange'}
+                <p><strong>INTERMEDIATE NINJA</strong></p>
+            {:else}
+                <p><strong>BEGINNER</strong></p>
+            {/if}
+            <p>{person.age} yeras old, {person.beltColor} belt.</p>
+            <button on:click={() => deletePerson(person.id)}>Delete</button>
+        </div>
+        <!-- :else can be used in the scenario that data is missing. -->
+    {:else}
+        <p>There are no people to show...</p>
+    {/each}
 </main>
 
 <style>
@@ -27,13 +43,6 @@
         padding: 1em;
         max-width: 240px;
         margin: 0 auto;
-    }
-
-    h1 {
-        color: #ff3e00;
-        text-transform: uppercase;
-        font-size: 4em;
-        font-weight: 100;
     }
 
     @media (min-width: 640px) {
