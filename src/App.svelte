@@ -13,7 +13,8 @@
     };
 </script>
 
-<Modal />
+<!-- Props can be added to modals for better data interaction and manipulation -->
+<Modal message="Hey, Man." isPromo={true} />
 <main>
     <!-- Adding the person.id will link each row to that respective person will be easier when manipulating data in the future. -->
     {#each people as person (person.id)}
