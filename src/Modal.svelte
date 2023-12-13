@@ -1,13 +1,37 @@
 <script>
-    let showModal = true;
+    export let isPromo = false;
+    export let showModal = false;
 </script>
 
 {#if showModal}
-    <div class="backdrop">
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <div class="backdrop" class:promo={isPromo} on:click|self>
         <div class="modal">
-            <p>Sign up for offers</p>
+            <!-- Will search and add all the content inside modal tag in the other component -->
+            <slot />
         </div>
     </div>
 {/if}
 
-<style></style>
+<style>
+    .backdrop {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        background: rgba(0, 0, 0, 0.8);
+    }
+
+    .modal {
+        padding: 10px;
+        border-radius: 10px;
+        max-width: 500px;
+        margin: 10% auto;
+        text-align: center;
+        background: white;
+    }
+
+    .promo .modal {
+        background: crimson;
+        color: white;
+    }
+</style>

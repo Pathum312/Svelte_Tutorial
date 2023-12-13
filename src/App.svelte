@@ -1,6 +1,12 @@
 <script>
     import Modal from './Modal.svelte';
 
+    let showModal = false;
+
+    const toggleModal = () => {
+        showModal = !showModal;
+    };
+
     let people = [
         { name: 'Yoshi', beltColor: 'Black', age: 25, id: 1 },
         { name: 'Mario', beltColor: 'Orange', age: 45, id: 2 },
@@ -13,8 +19,18 @@
     };
 </script>
 
-<Modal />
+<!-- Props can be added to modals for better data interaction and manipulation -->
+<Modal isPromo={false} {showModal} on:click={toggleModal}>
+    <h3>Add a New Person</h3>
+    <form>
+        <input type="text" placeholder="Name" />
+        <input type="text" placeholder="Belt Color" />
+
+        <button>Add</button>
+    </form>
+</Modal>
 <main>
+    <button on:click={toggleModal}>Add Person</button>
     <!-- Adding the person.id will link each row to that respective person will be easier when manipulating data in the future. -->
     {#each people as person (person.id)}
         <div>
