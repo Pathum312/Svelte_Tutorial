@@ -1,11 +1,12 @@
 <script>
     export let message = 'Default Message';
     export let isPromo = false;
-    let showModal = true;
+    export let showModal = false;
 </script>
 
 {#if showModal}
-    <div class="backdrop" class:promo={isPromo}>
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <div class="backdrop" class:promo={isPromo} on:click>
         <div class="modal">
             <p>{message}</p>
         </div>
