@@ -1,4 +1,6 @@
 <script>
+    import Modal from './Modal.svelte';
+
     let people = [
         { name: 'Yoshi', beltColor: 'Black', age: 25, id: 1 },
         { name: 'Mario', beltColor: 'Orange', age: 45, id: 2 },
@@ -11,6 +13,7 @@
     };
 </script>
 
+<Modal />
 <main>
     <!-- Adding the person.id will link each row to that respective person will be easier when manipulating data in the future. -->
     {#each people as person (person.id)}
@@ -25,9 +28,7 @@
             {:else}
                 <p><strong>BEGINNER</strong></p>
             {/if}
-            <p>
-                {person.age} yeras old, {person.beltColor} belt.
-            </p>
+            <p>{person.age} yeras old, {person.beltColor} belt.</p>
             <button on:click={() => deletePerson(person.id)}>Delete</button>
         </div>
         <!-- :else can be used in the scenario that data is missing. -->
