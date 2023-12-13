@@ -1,10 +1,4 @@
 <script>
-    // once - makes sure the event can only fire once (removes handler).
-    // preventDefault - prevent the default action (run e.preventDefault()).
-    // self - only fires the event if the clicked element is the target.
-    // more event modifiers detailed in the documentation.
-
-    export let message = 'Default Message';
     export let isPromo = false;
     export let showModal = false;
 </script>
@@ -13,7 +7,8 @@
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div class="backdrop" class:promo={isPromo} on:click|self>
         <div class="modal">
-            <p>{message}</p>
+            <!-- Will search and add all the content inside modal tag in the other component -->
+            <slot />
         </div>
     </div>
 {/if}
@@ -29,7 +24,7 @@
     .modal {
         padding: 10px;
         border-radius: 10px;
-        max-width: 400px;
+        max-width: 500px;
         margin: 10% auto;
         text-align: center;
         background: white;

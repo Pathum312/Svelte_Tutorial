@@ -20,9 +20,17 @@
 </script>
 
 <!-- Props can be added to modals for better data interaction and manipulation -->
-<Modal message="Hey, Man." isPromo={true} {showModal} on:click={toggleModal} />
+<Modal isPromo={false} {showModal} on:click={toggleModal}>
+    <h3>Add a New Person</h3>
+    <form>
+        <input type="text" placeholder="Name" />
+        <input type="text" placeholder="Belt Color" />
+
+        <button>Add</button>
+    </form>
+</Modal>
 <main>
-    <button on:click|once={toggleModal}>Open Offers!</button>
+    <button on:click={toggleModal}>Add Person</button>
     <!-- Adding the person.id will link each row to that respective person will be easier when manipulating data in the future. -->
     {#each people as person (person.id)}
         <div>
