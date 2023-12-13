@@ -1,6 +1,15 @@
 <script>
-    export let name;
+    export let firstName;
+    export let lastName;
     export let color;
+
+    // The reactive value will actumatically update when the dependent values are updated.
+    $: fullName = `${firstName} ${lastName}`;
+    // It will log in the console everytime the color changes.
+    $: {
+        console.log(color);
+        console.log(fullName);
+    }
 
     const handleCLick = () => {
         color = 'Blue';
@@ -12,12 +21,9 @@
 </script>
 
 <main>
-    <h1>Hello {name}!</h1>
-    <p style="color: {color};">Your belt color is {color}.</p>
-    <button on:click={handleCLick}>Change Color</button>
-    <!-- The on:input type method is better for one way data binding. -->
-    <!-- <input type="text" on:input={handleInput} value={color} /> -->
-    <!-- This is better for two way data binding. -->
+    <p style="color: {color};">{fullName} - Your belt color is {color}.</p>
+    <input type="text" bind:value={firstName} />
+    <input type="text" bind:value={lastName} />
     <input type="text" bind:value={color} />
 </main>
 
@@ -27,13 +33,6 @@
         padding: 1em;
         max-width: 240px;
         margin: 0 auto;
-    }
-
-    h1 {
-        color: #ff3e00;
-        text-transform: uppercase;
-        font-size: 4em;
-        font-weight: 100;
     }
 
     @media (min-width: 640px) {
