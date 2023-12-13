@@ -16,7 +16,18 @@
     {#each people as person (person.id)}
         <div>
             <h4>{person.name}</h4>
-            <p>{person.age} yeras old, {person.beltColor} belt.</p>
+            {#if person.beltColor.toLowerCase() === 'black'}
+                <p><strong>MASTER NINJA</strong></p>
+            {:else if person.beltColor.toLowerCase() === 'brown'}
+                <p><strong>ADVANCED NINJA</strong></p>
+            {:else if person.beltColor.toLowerCase() === 'orange'}
+                <p><strong>INTERMEDIATE NINJA</strong></p>
+            {:else}
+                <p><strong>BEGINNER</strong></p>
+            {/if}
+            <p>
+                {person.age} yeras old, {person.beltColor} belt.
+            </p>
             <button on:click={() => deletePerson(person.id)}>Delete</button>
         </div>
         <!-- :else can be used in the scenario that data is missing. -->
