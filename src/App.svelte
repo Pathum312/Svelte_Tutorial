@@ -1,11 +1,14 @@
 <script>
-    import { missing_component } from 'svelte/internal';
-
     let people = [
         { name: 'Yoshi', beltColor: 'Black', age: 25, id: 1 },
         { name: 'Mario', beltColor: 'Orange', age: 45, id: 2 },
         { name: 'Luigi', beltColor: 'Brown', age: 35, id: 3 },
     ];
+
+    // Remove person from array.
+    const deletePerson = (id) => {
+        people = people.filter((person) => person.id != id);
+    };
 </script>
 
 <main>
@@ -14,6 +17,7 @@
         <div>
             <h4>{person.name}</h4>
             <p>{person.age} yeras old, {person.beltColor} belt.</p>
+            <button on:click={() => deletePerson(person.id)}>Delete</button>
         </div>
         <!-- :else can be used in the scenario that data is missing. -->
     {:else}
