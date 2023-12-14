@@ -18,11 +18,17 @@
     const deletePerson = (id) => {
         people = people.filter((person) => person.id != id);
     };
+
+    const addPerson = (data) => {
+        const person = data.detail;
+        people = [person, ...people];
+        showModal = false;
+    };
 </script>
 
 <!-- Props can be added to modals for better data interaction and manipulation -->
 <Modal isPromo={false} {showModal} on:click={toggleModal}>
-    <AddPersonForm />
+    <AddPersonForm on:addPerson={addPerson} />
 </Modal>
 <main>
     <button on:click={toggleModal}>Add Person</button>
