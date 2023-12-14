@@ -1,5 +1,6 @@
 <script>
     import Modal from './Modal.svelte';
+    import AddPersonForm from './AddPersonForm.svelte';
 
     let showModal = false;
 
@@ -17,17 +18,17 @@
     const deletePerson = (id) => {
         people = people.filter((person) => person.id != id);
     };
+
+    const addPerson = (data) => {
+        const person = data.detail;
+        people = [person, ...people];
+        showModal = false;
+    };
 </script>
 
 <!-- Props can be added to modals for better data interaction and manipulation -->
 <Modal isPromo={false} {showModal} on:click={toggleModal}>
-    <h3>Add a New Person</h3>
-    <form>
-        <input type="text" placeholder="Name" />
-        <input type="text" placeholder="Belt Color" />
-
-        <button>Add</button>
-    </form>
+    <AddPersonForm on:addPerson={addPerson} />
 </Modal>
 <main>
     <button on:click={toggleModal}>Add Person</button>
